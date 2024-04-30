@@ -1,0 +1,37 @@
+﻿@page "/Todo"
+
+<h3>Todo list</h3>
+
+@foreach(var x in Items)
+{
+    <TodoItemRazor todo="x"></TodoItemRazor>
+}
+<div class="col-6">
+    <button @onclick=OnAddTasKClicked>Add To Do </button>
+</div>
+
+
+@code {
+    private List<ToDoItem> Items { get; set; }
+    [Inject] public NavigationManager nav { get; set; }
+    [Inject] public IDbContextFactory<ToDoDbContext> factory { get; set; }
+    protected override void OnInitialized()
+    {
+        
+        var context = factory.CreateDbContext();
+        Items = context.ToDoItems.ToList();
+        
+        base.OnInitialized();
+    }
+    public void OnAddTasKClicked()
+    {
+        nav.NavigateTo("ToDoCreate");
+    }
+
+    
+        
+    
+    
+
+
+}

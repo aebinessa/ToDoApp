@@ -1,0 +1,14 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+<TodoItemRazor todo="item1"></TodoItemRazor>
+
+@code{
+    public ToDoItem item1 = new ToDoItem
+    {
+        Description = "finish tasks",
+        DueDate = DateTime.Now.AddDays(5),
+        IsCompleted = false,
+        Id = 1
+    };
+}

@@ -1,0 +1,19 @@
+﻿<div class="card">
+    <div class = "card-body">
+        <ul>
+            <li>
+                @todo.Description (@(todo.IsCompleted ? "Done" : "en route"))
+            </li>
+            <li>
+               Due by: @todo.DueDate
+            </li>
+            
+        </ul>
+        </div>
+</div>
+
+@code {
+    [Parameter]
+    public ToDoItem todo { get; set; }
+    
+}

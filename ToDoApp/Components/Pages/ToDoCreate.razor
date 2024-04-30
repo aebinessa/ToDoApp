@@ -1,0 +1,26 @@
+﻿@page "/ToDoCreate"
+
+<EditForm Model="@newTodo" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    Description: <InputText @bind-Value = "@newTodo.Description"></InputText>
+    Is Completed: <InputCheckbox @bind-Value="@newTodo.IsCompleted"></InputCheckbox>
+    Due by: <InputDate @bind-Value="@newTodo.DueDate"></InputDate>
+
+    <button class="btn btn-primary">Add</button>
+
+
+</EditForm>
+
+@code {
+    private ToDoItem newTodo = new ToDoItem();
+    [Inject] public NavigationManager NavigationManager { get; set; }
+    [Inject] public IDbContextFactory<ToDoDbContext> factory { get; set; }
+    private async Task HandleValidSubmit()
+    {
+        var db = factory.CreateDbContext();
+        db.ToDoItems.Add(newTodo);
+        db.SaveChanges();
+        NavigationManager.NavigateTo("/Todo");
+
+    }
+}
